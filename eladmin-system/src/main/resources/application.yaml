@@ -1,0 +1,4 @@
+# 所有环境默认配置，对于不同环境通过application.yaml 进行定义，覆盖默认配置
+spring:
+  profiles:
+    active: default, local
