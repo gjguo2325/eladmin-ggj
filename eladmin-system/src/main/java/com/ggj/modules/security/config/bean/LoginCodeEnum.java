@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020  the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.ggj.util;
+package com.ggj.modules.security.config.bean;
 
 /**
+ * 验证码配置枚举
+ *
  * @author: liaojinlong
- * @date: 2020/6/9 17:02
- * @since: 1.0
- * @see {@link SpringContextHolder}
- * 针对某些初始化方法，在SpringContextHolder 初始化前时，<br>
- * 可提交一个 提交回调任务。<br>
- * 在SpringContextHolder 初始化后，进行回调使用
+ * @date: 2020/6/10 17:40
  */
 
-public interface CallBack {
+public enum LoginCodeEnum {
     /**
-     * 回调执行方法
+     * 算数
      */
-    void executor();
-
+    ARITHMETIC,
     /**
-     * 本回调任务名称
-     * @return /
+     * 中文
      */
-    default String getCallBackName() {
-        return Thread.currentThread().getId() + ":" + this.getClass().getName();
-    }
+    CHINESE,
+    /**
+     * 中文闪图
+     */
+    CHINESE_GIF,
+    /**
+     * 闪图
+     */
+    GIF,
+    SPEC
 }
-

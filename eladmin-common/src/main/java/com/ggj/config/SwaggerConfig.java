@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.ggj.config.swagger;
+package com.ggj.config;
 
 import com.fasterxml.classmate.TypeResolver;
 import com.google.common.base.Predicates;
@@ -44,7 +44,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
- * api页面 /doc.html
+ * api页面 /swagger-ui.html#/
  * @author Zheng Jie
  * @date 2018-11-23
  */
