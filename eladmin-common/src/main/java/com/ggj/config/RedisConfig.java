@@ -82,17 +82,17 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
         // fastjson 升级到 1.2.83 后需要指定序列化白名单
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.domain");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.domain");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.service.dto");
         // 模块内的实体类
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.mnt.domain");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.quartz.domain");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.system.domain");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.mnt.domain");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.quartz.domain");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.system.domain");
         // 模块内的 Dto
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.mnt.service.dto");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.quartz.service.dto");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.security.service.dto");
-        ParserConfig.getGlobalInstance().addAccept("me.guoguojie.modules.system.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.mnt.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.quartz.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.security.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("com.ggj.modules.system.service.dto");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());

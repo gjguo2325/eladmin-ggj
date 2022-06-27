@@ -112,6 +112,10 @@ public class AuthorizationController {
       put("user", jwtUserDto);
     }};
     // FIXME: 2022/6/24 后期添加单点登录
+    if (loginProperties.isSingleLogin()) {
+      //踢掉之前已经登录的token
+      onlineUserService.checkLoginOnUser(authUser.getUsername(), token);
+    }
     return ResponseEntity.ok(authInfo);
   }
 

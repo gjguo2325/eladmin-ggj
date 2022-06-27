@@ -19,7 +19,9 @@ import com.ggj.annotation.AnonymousAccess;
 import com.ggj.modules.security.config.bean.SecurityProperties;
 import com.ggj.modules.security.security.JwtAccessDeniedHandler;
 import com.ggj.modules.security.security.JwtAuthenticationEntryPoint;
+import com.ggj.modules.security.security.TokenConfigurer;
 import com.ggj.modules.security.security.TokenProvider;
+import com.ggj.modules.security.service.OnlineUserService;
 import com.ggj.modules.security.service.UserCacheManager;
 import com.ggj.utils.enums.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
     private final SecurityProperties properties;
-//    private final OnlineUserService onlineUserService;
+    private final OnlineUserService onlineUserService;
     private final UserCacheManager userCacheManager;
 
     @Bean
@@ -137,13 +139,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 所有类型的接口都放行
                 .antMatchers(anonymousUrls.get(RequestMethodEnum.ALL.getType()).toArray(new String[0])).permitAll()
                 // 所有请求都需要认证
-                .anyRequest().authenticated();
-//                .and().apply(securityConfigurerAdapter());
+                .anyRequest().authenticated()
+                .and().apply(securityConfigurerAdapter());
     }
 
-//    private TokenConfigurer securityConfigurerAdapter() {
-//        return new TokenConfigurer(tokenProvider, properties, onlineUserService, userCacheManager);
-//    }
+    private TokenConfigurer securityConfigurerAdapter() {
+        return new TokenConfigurer(tokenProvider, properties, onlineUserService, userCacheManager);
+    }
 
     private Map<String, Set<String>> getAnonymousUrl(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {
         Map<String, Set<String>> anonymousUrls = new HashMap<>(8);
