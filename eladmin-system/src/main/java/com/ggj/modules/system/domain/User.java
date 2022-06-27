@@ -33,7 +33,7 @@ public class User extends BaseEntity implements Serializable {
   @Id
   @NotNull(groups = Update.class, message = "ID不能为空")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(columnDefinition = "bigint comment 'id'")
+  @Column(name = "user_id")
   @ApiModelProperty(value = "ID", hidden = true)
   private Long id;
 
