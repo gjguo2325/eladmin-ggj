@@ -17,5 +17,5 @@ public interface UserService {
    * @param userName 用户名
    * @return UserLoginDto
    */
-  UserLoginDto getLoginData(String userName) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+  UserLoginDto getLoginData(String userName);
 }

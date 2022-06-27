@@ -22,6 +22,7 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final UserLoginMapper userLoginMapper;
 
   @Override
   public UserLoginDto getLoginData(String userName) {
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     if(Objects.isNull(user)){
       throw new EntityNotFoundException(User.class, "name", userName);
     }
-    return UserLoginDto.from(user);
+   return userLoginMapper.toDto(user);
+  //  return UserLoginDto.from(user);
   }
 }
