@@ -5,13 +5,14 @@
     <parent>
         <groupId>com.ggj</groupId>
         <artifactId>eladmin</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>eladmin-system</artifactId>
     <name>eladmin-system</name>
 
     <properties>
+        <revision>1.0-SNAPSHOT</revision>
         <jjwt.version>0.11.1</jjwt.version>
     </properties>
 
