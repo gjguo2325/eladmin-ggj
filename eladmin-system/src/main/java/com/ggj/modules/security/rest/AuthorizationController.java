@@ -108,7 +108,7 @@ public class AuthorizationController {
     onlineUserService.save(jwtUserDto, token, request);
     // 返回token与用户信息
     Map<String, Object> authInfo = new HashMap<String, Object>(2){{
-      put("token", token);
+      put("token", securityProperties.getTokenStartWith() + token);
       put("user", jwtUserDto);
     }};
     // FIXME: 2022/6/24 后期添加单点登录
