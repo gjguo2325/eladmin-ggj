@@ -18,6 +18,7 @@ package com.ggj.modules.system.repository;
 import com.ggj.modules.system.domain.Dept;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -44,4 +45,16 @@ public interface DeptRepository extends JpaRepository<Dept, Long>, JpaSpecificat
      * @return /
      */
     List<Dept> findByPid(Long id);
+
+    /**
+     * 判断是否存在子节点
+     *
+     * @param id pidId
+     * @return 数量
+     */
+    int countByPid(Long id);
+
+    @Modifying
+    @Query(value = "update sys_dept set sub_count = ?2 where dept_id = ?1",nativeQuery = true)
+    void updateSubCntById(Long id, Integer count);
 }

@@ -27,10 +27,16 @@ import java.io.Serializable;
 public class RoleSmallDto implements Serializable {
 
     private Long id;
-
+    /**
+     * 角色名称
+     */
     private String name;
-
+    /**
+     * 等级
+     */
     private Integer level;
-
+    /**
+     * 数据范围（字段信息从枚举DataScopeEnum中来）
+     */
     private String dataScope;
 }

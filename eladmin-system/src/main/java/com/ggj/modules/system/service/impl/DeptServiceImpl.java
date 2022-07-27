@@ -15,22 +15,20 @@
  */
 package com.ggj.modules.system.service.impl;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.ggj.modules.system.domain.Dept;
+import com.ggj.modules.system.domain.User;
 import com.ggj.modules.system.repository.DeptRepository;
+import com.ggj.modules.system.repository.UserRepository;
 import com.ggj.modules.system.service.DeptService;
+import com.ggj.utils.CacheKey;
+import com.ggj.utils.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -43,6 +41,8 @@ import java.util.stream.Collectors;
 public class DeptServiceImpl implements DeptService {
 
     private final DeptRepository deptRepository;
+    private final RedisUtils redisUtils;
+    private final UserRepository userRepository;
 
     @Override
     public List<Dept> findByPid(long pid) {
@@ -68,5 +68,34 @@ public class DeptServiceImpl implements DeptService {
                 }
         );
         return list;
+    }
+
+    @Override
+    public void create(Dept dept) {
+        deptRepository.save(dept);
+        //计算子节点数量
+        dept.setSubCount(0);
+        //清理缓存
+        updateSubCount(dept.getPid());
+        // 清理自定义角色权限的datascope缓存
+        delCaches(dept.getPid());
+    }
+
+    public void updateSubCount(Long deptId){
+        if (deptId != null) {
+            int count = deptRepository.countByPid(deptId);
+            deptRepository.updateSubCntById(deptId, count);
+        }
+    }
+
+    /**
+     * 清理缓存
+     * @param id /
+     */
+    public void delCaches(Long id){
+        List<User> users = userRepository.findByRoleDeptId(id);
+        // 删除数据权限
+        redisUtils.delByKeys(CacheKey.DATA_USER, users.stream().map(User::getId).collect(Collectors.toSet()));
+        redisUtils.del(CacheKey.DEPT_ID + id);
     }
 }

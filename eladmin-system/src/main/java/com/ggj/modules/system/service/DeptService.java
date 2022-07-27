@@ -46,4 +46,10 @@ public interface DeptService {
      * @return
      */
     List<Long> getDeptChildren(List<Dept> deptList);
+
+    /**
+     * 部门信息
+     * @param dept dept
+     */
+    void create(Dept dept);
 }

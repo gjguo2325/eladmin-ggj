@@ -33,10 +33,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class JwtUserDto implements UserDetails {
 
+    /**
+     * 用户基本信息
+     */
     private final UserLoginDto user;
-
+    /**
+     * 用户的数据权限（部门id）
+     */
     private final List<Long> dataScopes;
-
+    /**
+     * 用户权限
+     */
     private final List<AuthorityDto> authorities;
 
     public Set<String> getRoles() {

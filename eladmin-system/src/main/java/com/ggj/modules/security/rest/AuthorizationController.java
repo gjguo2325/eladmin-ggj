@@ -72,7 +72,7 @@ public class AuthorizationController {
       put("img", captcha.toBase64());
       put("uuid", uuid);
     }};
-    return ResponseEntity.ok(imgResult);
+    return new  ResponseEntity<>(imgResult,HttpStatus.OK);
   }
 
   @ApiOperation(value = "获取用户信息")
